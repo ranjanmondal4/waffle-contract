@@ -23,6 +23,8 @@ Add tsconfig.json file and paste following code.
 
 Add Waffle.js and paste following code.
 
+5. npm i openzeppelin-solidity
+
 To compile Solidity code in contracts folder, run following command
 ./node_modules/ethereum-waffle/bin/waffle waffle.js
 
@@ -39,6 +41,7 @@ Reading stuffs
 1. https://medium.com/blockchannel/the-use-of-revert-assert-and-require-in-solidity-and-the-new-revert-opcode-in-the-evm-1a3a7990e06e
 2. https://media.consensys.net/ethereum-gas-fuel-and-fees-3333e17fe1dc
 3. https://github.com/ethereum/solidity/releases
+4. https://medium.com/coinmonks/solidity-import-in-vs-code-the-right-way-82baa1cc5a71
 
 # truffle commands
 
