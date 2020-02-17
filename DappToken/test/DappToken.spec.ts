@@ -264,4 +264,55 @@ describe("DappToken", () => {
       .to.be.emit(tokenWithAdmin, "Transfer")
       .withArgs(adminWallet.address, secondUserWallet.address, AMOUNT);
   });
+
+  it(`should revert when user tries to minting token`, async () => {
+    const AMOUNT = 20;
+    // Minting of token by user
+    await expect(
+      tokenWithUser.mint(AMOUNT, userWallet.address, GAS_LIMIT)
+    ).to.be.revertedWith("onlyAdmin::Status Error, Only admin is allowed");
+  });
+
+  it(`should revert when amount is zero on Minting`, async () => {
+    const AMOUNT = 0;
+    // Minting of token
+    await expect(
+      tokenWithAdmin.mint(AMOUNT, userWallet.address, GAS_LIMIT)
+    ).to.be.revertedWith(
+      "mint::Amount Error, Amount should be greator than 0"
+    );
+  });
+
+  it(`should update balances on Minting`, async () => {
+    // Token balance of user and total supply before Minting
+    const tokenSupplyBeforeMinting = await tokenWithAdmin.totalSupply();
+    const tokenBalanceOfUserBeforeMinting = await tokenWithAdmin.balanceOf(
+      userWallet.address
+    );
+
+    // Minting of token
+    const AMOUNT = 30;
+    await tokenWithAdmin.mint(AMOUNT, userWallet.address);
+
+    // Token balance of user and total supply after Minting
+    const tokenSupplyAfterMinting = await tokenWithAdmin.totalSupply();
+    const tokenBalanceOfUserAfterMinting = await tokenWithAdmin.balanceOf(
+      userWallet.address
+    );
+
+    expect(tokenSupplyBeforeMinting.add(AMOUNT)).to.be.eq(
+      tokenSupplyAfterMinting
+    );
+    expect(tokenBalanceOfUserBeforeMinting.add(AMOUNT)).to.be.eq(
+      tokenBalanceOfUserAfterMinting
+    );
+  });
+
+  it(`should emit event on Minting`, async () => {
+    // Minting of token
+    const AMOUNT = 30;
+    await expect(tokenWithAdmin.mint(AMOUNT, userWallet.address))
+      .to.be.emit(tokenWithAdmin, "Transfer")
+      .withArgs(AddressZero, userWallet.address, AMOUNT);
+  });
 });
