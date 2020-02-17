@@ -1,0 +1,28 @@
+{
+  "name": "dapptoken",
+  "version": "1.0.0",
+  "description": "Waffle-Dapp",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/ts-mocha/bin/ts-mocha test/*.spec.ts",
+    "build": "waffle .waffle.json"
+  },
+  "author": "ranjan",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/chai": "^4.2.9",
+    "@types/mocha": "^7.0.1",
+    "@types/node": "^13.7.1",
+    "chai": "^4.2.0",
+    "ethereum-waffle": "^2.3.2",
+    "openzeppelin-solidity": "^2.5.0",
+    "prettier": "^1.19.1",
+    "prettier-plugin-solidity": "^1.0.0-alpha.39",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.7.5"
+  },
+  "dependencies": {
+    "solc": "^0.6.2",
+    "ts-mocha": "^6.0.0"
+  }
+}
