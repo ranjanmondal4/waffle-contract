@@ -22,9 +22,6 @@ contract DappToken {
 		address indexed _spender,
 		uint256 _value
 	);
-	event Burn(address indexed from, uint256 value);
-	event Freeze(address indexed from, uint256 value);
-	event Unfreeze(address indexed from, uint256 value);
 
 	/** Constructor */
 	constructor(uint256 _initialSupply) public {
@@ -101,15 +98,18 @@ contract DappToken {
 		return true;
 	}
 
-	function burn(uint256 _value) public returns (bool success) {
-		require(_value > 0, "Burn Amount should be greator than 0");
+	function burn(uint256 _amount) public returns (bool success) {
 		require(
-			balanceOf[msg.sender] >= _value,
-			"Insufficient balance for burn"
+			_amount > 0,
+			"burn::Amount Error, Amount should be greator than 0"
 		);
-		balanceOf[msg.sender] = balanceOf[msg.sender].sub(_value);
-		totalSupply = totalSupply.sub(_value);
-		emit Burn(msg.sender, _value);
+		require(
+			balanceOf[msg.sender] >= _amount,
+			"burn::Amount Error, Insufficient balance for burn"
+		);
+		balanceOf[msg.sender] = balanceOf[msg.sender].sub(_amount);
+		totalSupply = totalSupply.sub(_amount);
+		emit Transfer(msg.sender, address(0), _amount);
 		return true;
 	}
 
